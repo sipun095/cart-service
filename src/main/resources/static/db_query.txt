@@ -1,0 +1,18 @@
+CREATE TABLE cart (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL, -- Reference to the user who owns the cart
+    total_amount DECIMAL(10, 2) DEFAULT 0.00, -- Total value of items in the cart
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Creation timestamp
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- Update timestamp
+);
+
+
+CREATE TABLE cart_items (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    cart_id BIGINT NOT NULL, -- Foreign key referencing the cart
+    book_id BIGINT NOT NULL, -- Book ID for the item
+    quantity INT NOT NULL, -- Number of copies of the book
+    price DECIMAL(10, 2) NOT NULL, -- Price of a single book
+    subtotal DECIMAL(10, 2) NOT NULL, -- Total price for the quantity
+    FOREIGN KEY (cart_id) REFERENCES cart(id) ON DELETE CASCADE
+);
